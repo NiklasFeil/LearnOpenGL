@@ -1,0 +1,4 @@
+/home/niklas/Dev/LearnOpenGL/build/CMakeFiles/LearnOpenGL.dir
+/home/niklas/Dev/LearnOpenGL/build/CMakeFiles/GLAD.dir
+/home/niklas/Dev/LearnOpenGL/build/CMakeFiles/edit_cache.dir
+/home/niklas/Dev/LearnOpenGL/build/CMakeFiles/rebuild_cache.dir
