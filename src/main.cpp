@@ -3,23 +3,30 @@
 #include <GLFW/glfw3.h>
 
 void processInput(GLFWwindow *window);
-unsigned int setupBasicShaders();
+unsigned int setupBasicShaders(const char* vertexShaderSource, const char* fragmentShaderSource);
 
 constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 600;
 
-const char *vertexShaderSource = "#version 330 core\n"
+const char *vertexShaderSourceBasic = "#version 330 core\n"
     "layout (location = 0) in vec3 aPos;\n"
     "void main()\n"
     "{\n"
     "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
     "}\0";
 
-const char *fragmentShaderSource = "#version 330 core\n"
+const char *fragmentShaderSourceOrange = "#version 330 core\n"
     "out vec4 FragColor;\n"
     "void main()\n"
     "{\n"
     "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    "}\0"; 
+
+const char *fragmentShaderSourceYellow = "#version 330 core\n"
+    "out vec4 FragColor;\n"
+    "void main()\n"
+    "{\n"
+    "   FragColor = vec4(1.0f, 0.8f, 0.0f, 1.0f);\n"
     "}\0"; 
 
 int main() 
@@ -47,7 +54,8 @@ int main()
     
     glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    unsigned int shaderProgram = setupBasicShaders();
+    unsigned int shaderProgramTriangleOne = setupBasicShaders(vertexShaderSourceBasic, fragmentShaderSourceOrange);
+    unsigned int shaderProgramTriangleTwo = setupBasicShaders(vertexShaderSourceBasic, fragmentShaderSourceYellow);
 
     float triangle_one_vertices[] = {
         // first triangle
@@ -101,10 +109,11 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // State-setting
         glClear(GL_COLOR_BUFFER_BIT); // State-using
 
-        glUseProgram(shaderProgram);
+        glUseProgram(shaderProgramTriangleOne);
         glBindVertexArray(VAOs[0]);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
+        glUseProgram(shaderProgramTriangleTwo);
         glBindVertexArray(VAOs[1]);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0);
@@ -125,7 +134,7 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 
-unsigned int setupBasicShaders()
+unsigned int setupBasicShaders(const char* vertexShaderSource, const char* fragmentShaderSource)
 {
     unsigned int vertexShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -170,3 +179,4 @@ unsigned int setupBasicShaders()
 
     return shaderProgram;
 }
+
