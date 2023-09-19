@@ -1,37 +1,35 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <cmath>
 
 void processInput(GLFWwindow *window);
 unsigned int setupBasicShaders(const char* vertexShaderSource, const char* fragmentShaderSource);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
-constexpr int SCREEN_WIDTH = 800;
-constexpr int SCREEN_HEIGHT = 600;
+constexpr unsigned int SCREEN_WIDTH = 800;
+constexpr unsigned int SCREEN_HEIGHT = 600;
 
-const char *vertexShaderSourceBasic = "#version 330 core\n"
+const char *vertexShaderSource = "#version 330 core\n"
     "layout (location = 0) in vec3 aPos;\n"
+    "layout (location = 1) in vec3 aColor;\n"
+    "out vec3 ourColor;\n"
     "void main()\n"
     "{\n"
     "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    "   ourColor = aColor;"
     "}\0";
 
-const char *fragmentShaderSourceOrange = "#version 330 core\n"
+const char *fragmentShaderSource = "#version 330 core\n"
     "out vec4 FragColor;\n"
+    "in vec3 ourColor;\n"
     "void main()\n"
     "{\n"
-    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-    "}\0"; 
-
-const char *fragmentShaderSourceYellow = "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "void main()\n"
-    "{\n"
-    "   FragColor = vec4(1.0f, 0.8f, 0.0f, 1.0f);\n"
-    "}\0"; 
+    "   FragColor = vec4(ourColor, 1.0f);\n"
+    "}\0";
 
 int main() 
 {
-
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -54,51 +52,27 @@ int main()
     
     glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    unsigned int shaderProgramTriangleOne = setupBasicShaders(vertexShaderSourceBasic, fragmentShaderSourceOrange);
-    unsigned int shaderProgramTriangleTwo = setupBasicShaders(vertexShaderSourceBasic, fragmentShaderSourceYellow);
-
-    float triangle_one_vertices[] = {
-        // first triangle
-        -0.5f, 0.5f, 0.0f, // top left
-        -0.5f, -0.5f, 0.0f, // bottom left
-        0.0f, -0.5f, 0.0f, // bottom right
+    unsigned int shaderProgram = setupBasicShaders(vertexShaderSource, fragmentShaderSource);
+    
+    float vertices[] = {
+        // positions         // colors
+        0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f, // bottom right
+        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, // bottom left
+        0.0f, 0.5f, 0.0f,    0.0f, 0.0f, 1.0f  // top
     };
 
-    float triangle_two_vertices[] = {
-        // second triangle
-        0.0f, -0.5f, 0.0f, // bottom left
-        0.5f, 0.5f, 0.0f, // top right
-        0.5f, -0.5f, 0.0f // bottom right
-    };
+    unsigned int VAO, VBO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
 
-    /*unsigned int indices[] = {
-        0, 1, 3, // first triangle
-        1, 2, 3 // second triangle
-    };*/
-
-    unsigned int VAOs[2], VBOs[2];
-    glGenVertexArrays(2, VAOs); 
-    glGenBuffers(2, VBOs);
-
-    // first triangle setup
-    glBindVertexArray(VAOs[0]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle_one_vertices), triangle_one_vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
+    // triangle setup
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*) 0);
     glEnableVertexAttribArray(0);
-
-    // second triangle setup
-    glBindVertexArray(VAOs[1]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle_two_vertices), triangle_two_vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
-    glEnableVertexAttribArray(0);
-
-    /*unsigned int EBO;
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    */
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*) (3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     while(!glfwWindowShouldClose(window))
     {
@@ -109,12 +83,9 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // State-setting
         glClear(GL_COLOR_BUFFER_BIT); // State-using
 
-        glUseProgram(shaderProgramTriangleOne);
-        glBindVertexArray(VAOs[0]);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glUseProgram(shaderProgram);
 
-        glUseProgram(shaderProgramTriangleTwo);
-        glBindVertexArray(VAOs[1]);
+        glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0);
 
@@ -122,6 +93,10 @@ int main()
         glfwSwapBuffers(window);
         glfwPollEvents();    
     }
+
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteProgram(shaderProgram);
 
     glfwTerminate();
 
@@ -180,3 +155,10 @@ unsigned int setupBasicShaders(const char* vertexShaderSource, const char* fragm
     return shaderProgram;
 }
 
+// called by glfw whenever frame is resized
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    // make sure the viewport matches the new window dimensions; note that width and 
+    // height will be significantly larger than specified on retina displays.
+    glViewport(0, 0, width, height);
+}
