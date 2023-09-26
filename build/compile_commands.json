@@ -16,5 +16,17 @@
   "command": "/usr/bin/g++  -I/home/niklas/Dev/LearnOpenGL/src -I/home/niklas/Dev/LearnOpenGL/include -g -o CMakeFiles/LearnOpenGL.dir/src/main.cpp.o -c /home/niklas/Dev/LearnOpenGL/src/main.cpp",
   "file": "/home/niklas/Dev/LearnOpenGL/src/main.cpp",
   "output": "CMakeFiles/LearnOpenGL.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/niklas/Dev/LearnOpenGL/build",
+  "command": "/usr/bin/g++  -I/home/niklas/Dev/LearnOpenGL/src -I/home/niklas/Dev/LearnOpenGL/include -g -o CMakeFiles/LearnOpenGL.dir/src/shaders.cpp.o -c /home/niklas/Dev/LearnOpenGL/src/shaders.cpp",
+  "file": "/home/niklas/Dev/LearnOpenGL/src/shaders.cpp",
+  "output": "CMakeFiles/LearnOpenGL.dir/src/shaders.cpp.o"
+},
+{
+  "directory": "/home/niklas/Dev/LearnOpenGL/build",
+  "command": "/usr/bin/g++  -I/home/niklas/Dev/LearnOpenGL/src -I/home/niklas/Dev/LearnOpenGL/include -g -o CMakeFiles/LearnOpenGL.dir/src/stb_image.cpp.o -c /home/niklas/Dev/LearnOpenGL/src/stb_image.cpp",
+  "file": "/home/niklas/Dev/LearnOpenGL/src/stb_image.cpp",
+  "output": "CMakeFiles/LearnOpenGL.dir/src/stb_image.cpp.o"
 }
 ]

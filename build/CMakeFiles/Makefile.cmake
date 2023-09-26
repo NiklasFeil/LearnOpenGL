@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "/home/niklas/Dev/LearnOpenGL/CMakeLists.txt"
-  "CMakeFiles/3.27.3/CMakeCCompiler.cmake"
-  "CMakeFiles/3.27.3/CMakeCXXCompiler.cmake"
-  "CMakeFiles/3.27.3/CMakeSystem.cmake"
+  "CMakeFiles/3.27.4/CMakeCCompiler.cmake"
+  "CMakeFiles/3.27.4/CMakeCXXCompiler.cmake"
+  "CMakeFiles/3.27.4/CMakeSystem.cmake"
   "/usr/local/lib64/cmake/glfw3/glfw3Config.cmake"
   "/usr/local/lib64/cmake/glfw3/glfw3ConfigVersion.cmake"
   "/usr/local/lib64/cmake/glfw3/glfw3Targets-debug.cmake"

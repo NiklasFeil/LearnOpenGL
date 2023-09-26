@@ -193,6 +193,54 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/LearnOpenGL.dir/build.make CMakeFiles/LearnOpenGL.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/shaders.o: src/shaders.cpp.o
+.PHONY : src/shaders.o
+
+# target to build an object file
+src/shaders.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/LearnOpenGL.dir/build.make CMakeFiles/LearnOpenGL.dir/src/shaders.cpp.o
+.PHONY : src/shaders.cpp.o
+
+src/shaders.i: src/shaders.cpp.i
+.PHONY : src/shaders.i
+
+# target to preprocess a source file
+src/shaders.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/LearnOpenGL.dir/build.make CMakeFiles/LearnOpenGL.dir/src/shaders.cpp.i
+.PHONY : src/shaders.cpp.i
+
+src/shaders.s: src/shaders.cpp.s
+.PHONY : src/shaders.s
+
+# target to generate assembly for a file
+src/shaders.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/LearnOpenGL.dir/build.make CMakeFiles/LearnOpenGL.dir/src/shaders.cpp.s
+.PHONY : src/shaders.cpp.s
+
+src/stb_image.o: src/stb_image.cpp.o
+.PHONY : src/stb_image.o
+
+# target to build an object file
+src/stb_image.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/LearnOpenGL.dir/build.make CMakeFiles/LearnOpenGL.dir/src/stb_image.cpp.o
+.PHONY : src/stb_image.cpp.o
+
+src/stb_image.i: src/stb_image.cpp.i
+.PHONY : src/stb_image.i
+
+# target to preprocess a source file
+src/stb_image.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/LearnOpenGL.dir/build.make CMakeFiles/LearnOpenGL.dir/src/stb_image.cpp.i
+.PHONY : src/stb_image.cpp.i
+
+src/stb_image.s: src/stb_image.cpp.s
+.PHONY : src/stb_image.s
+
+# target to generate assembly for a file
+src/stb_image.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/LearnOpenGL.dir/build.make CMakeFiles/LearnOpenGL.dir/src/stb_image.cpp.s
+.PHONY : src/stb_image.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -209,6 +257,12 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/shaders.o"
+	@echo "... src/shaders.i"
+	@echo "... src/shaders.s"
+	@echo "... src/stb_image.o"
+	@echo "... src/stb_image.i"
+	@echo "... src/stb_image.s"
 .PHONY : help
 
 
